@@ -3,14 +3,14 @@ import express from "express"; // create express app wich receive the data from 
 import bodyParser from 'body-parser';  // to parse the JSON data received from script.js
 import cors from 'cors'; // cors to declare the front-end origin of my todo app
 import { parsePhoneNumber } from 'libphonenumber-js'; // to get the country code of all phone numbers
-import cron from 'node-cron';
-import cronParser from 'cron-parser';
+import cron from 'node-cron'; // for handle cron expressions every minute
+import cronParser from 'cron-parser'; // parse the cron expressions to compare them with the current date
 
 const botToken = "your_token"; // Replace with your bot token
 const bot = new TelegramBot(botToken, { polling: true });
 const trackedUsers = [];  // Array to store users ID
 const usersPhotosDict = {}; // dictionnaire id : userid    value : list of phototoUrls
-const photoUrlsList = [];
+const photoUrlsList = []; // list to store URLs photo profile
 
 bot.on('polling_error', err => console.log(err));
 bot.onText(/\/start/, async (msg) => {
@@ -28,10 +28,8 @@ bot.onText(/\/start/, async (msg) => {
   if (!usersPhotosDict.hasOwnProperty(userId)) {
     bot.getUserProfilePhotos(userId).then((response) => {
       const totalPhotos = response.total_count;
-      console.log('Total profile photos: ', totalPhotos);
       const photos = response.photos;
-      // Iterate through the photos array
-      photos.forEach((photo, photoIndex) => {
+      photos.forEach((photo, photoIndex) => { // Iterate through the photos array
         const fileId = photo[2].file_id;
         bot.getFile(fileId).then((fileInfo) => { // Get file information using Telegram Bot API's getFile method
           const fileUrl = `https://api.telegram.org/file/bot${botToken}/${fileInfo.file_path}`;
@@ -45,7 +43,7 @@ bot.onText(/\/start/, async (msg) => {
     .catch((error) => {
       console.error('Error fetching user profile photos:', error);
     });
-    usersPhotosDict[userId] = photoUrlsList;
+    usersPhotosDict[userId] = photoUrlsList; // after storing all urls of the user photos, use a dictionnary to have each user with his photos
   }
   bot.sendMessage(chatId, 'Contact', {
     reply_markup: {
@@ -56,9 +54,9 @@ bot.onText(/\/start/, async (msg) => {
     }
   }).then((sentMessage) => {
     bot.once('contact', async (contactMsg) => { // Listen for the contact event once the message is sent
-      const phoneNumber = contactMsg.contact.phone_number;
+      const phoneNumber = contactMsg.contact.phone_number; // get the phone number
       const formattedPhoneNumber = phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;// Ensure phone number is in the correct format
-      const parsedPhoneNumber = parsePhoneNumber(formattedPhoneNumber);
+      const parsedPhoneNumber = parsePhoneNumber(formattedPhoneNumber); // parse the phone number
       let country = '';
       if (parsedPhoneNumber) {
           country = parsedPhoneNumber.country || '';
@@ -87,8 +85,8 @@ bot.onText(/\/start/, async (msg) => {
       console.error('Error sending message:', error);
   });
 });
-
-const cronList = ["30 * * * *", "31 18 * * *", "32 18 13 3 *"];
+// CronJob
+const cronList = ["30 * * * *", "31 14 * * *", "32 14 14 3 *"];
 
 function timeMatches(expression, date) {
   const interval = cronParser.parseExpression(expression);
@@ -119,7 +117,7 @@ function dateTimeMatches(dateTimeList, currentDate) {
   console.log(currentDateTimeStr);
   return dateTimeList.includes(currentDateTimeStr);// Check if the current date and time matches any date and time in the list
 }
-const dateTimeList = ['2024-03-13T17:55', '2024-03-13T17:56'];// we should make it less one hour cause it works with GMT
+const dateTimeList = ['2024-03-14T13:55', '2024-03-14T13:56'];// we should make it less one hour cause it works with GMT
 const currentDate = new Date();// Check if the current date and time matches any date and time in the list
 cron.schedule('* * * * *', () => {
   console.log('Running cron job...');
