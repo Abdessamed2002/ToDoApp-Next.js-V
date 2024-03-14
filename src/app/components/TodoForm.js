@@ -1,6 +1,4 @@
-// components/TodoForm.js
 import React from 'react';
-
 const TodoForm = ({ onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,5 +26,4 @@ const TodoForm = ({ onSubmit }) => {
     </form>
   );
 };
-
 export default TodoForm;

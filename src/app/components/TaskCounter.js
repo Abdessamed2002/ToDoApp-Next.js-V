@@ -1,6 +1,4 @@
-// components/TaskCounter.js
 import React from 'react';
-
 const TaskCounter = ({ count, removeAllTasks }) => {
   return (
     <div className="div-todo2">
@@ -9,5 +7,4 @@ const TaskCounter = ({ count, removeAllTasks }) => {
     </div>
   );
 };
-
 export default TaskCounter;

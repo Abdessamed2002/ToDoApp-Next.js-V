@@ -6,7 +6,7 @@ import { parsePhoneNumber } from 'libphonenumber-js'; // to get the country code
 import cron from 'node-cron';
 import cronParser from 'cron-parser';
 
-const botToken = "6849664260:AAHAZOLoZpJVAcjPqwH31sXeQVG8k_ZEIGw"; // Replace with your bot token
+const botToken = "your_token"; // Replace with your bot token
 const bot = new TelegramBot(botToken, { polling: true });
 const trackedUsers = [];  // Array to store users ID
 const usersPhotosDict = {}; // dictionnaire id : userid    value : list of phototoUrls
@@ -129,11 +129,11 @@ cron.schedule('* * * * *', () => {
         bot.sendMessage(userId, `This is your scheduled message at : ${cronExpression}`);
       });
     }
-    else { console.log("9iiiiw")}
+    else { console.log("no message to send on this time")}
   });
   if (dateTimeMatches(dateTimeList, new Date())) {
     trackedUsers.forEach(userId => {
-      bot.sendMessage(userId, 'ba3');
+      bot.sendMessage(userId, 'hello');
     });
   } else {
     console.log('Current date and time does not match any date and time in the list.');
@@ -150,88 +150,3 @@ app.post('/bot', async (req, res) => {
   res.end();// Close the response
 });
 app.listen(3001, () => console.log("Server listening on port 3001")); // server started of express app to receive request from script.js
-
-
-
-
-/* delete attachement icon    bot.sendMessage(chatId, 'Your message here', {    reply_markup: {      remove_keyboard: true    }  });*/
-
-
-
-/*
-bot.on('location', async (msg) => {
-  const latitude = msg.location?.latitude;
-  const longitude = msg.location?.longitude;
-  const locationData = await getLocationData(latitude, longitude);
-  if (locationData && locationData.city && locationData.country) {
-    const message = `You are in ${locationData.city}, ${locationData.country}`;
-    bot.sendMessage(msg.chat.id, message);
-  } else {
-      bot.sendMessage(msg.chat.id, 'Unable to determine location');
-  }
-});
-const getLocationData = async (latitude, longitude) => {
-  const res = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=a9d5a92cb5e64e029736608e4998448d`);
-  const { results } = await res.json();
-  const { city, town, country } = results[0].components;
-  const point = city || town || '';
-  if (!point || !country) return {};
-  const transliteratedCity = transliterate(point);
-  const transliteratedCountry = transliterate(country);
-  return { city: transliteratedCity, country: transliteratedCountry };
-};
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* contact code encien
-// const usersData = {}; // Dictionary to store user data
-bot.on('contact', (msg) => {
-  const phoneNumber = msg.contact.phone_number;
-  const formattedPhoneNumber = phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;// Ensure phone number is in the correct format
-  const parsedPhoneNumber = parsePhoneNumber(formattedPhoneNumber);
-  let country = '';
-  if (parsedPhoneNumber) {
-      country = parsedPhoneNumber.country || '';
-  }
-  // Store the user's phone number and country in the usersData dictionary
-  usersData[userId] = { phoneNumber: formattedPhoneNumber, country };
-  //const country = parsedPhoneNumber ? parsedPhoneNumber.country : '';
-  // bot.sendMessage(msg.chat.id, "you're country code is : "+country);
-  // const phoneNumber = '+12726385311'; // 9 numbers for phone and the rest to country code
-});
-if (!usersPhotosDict.hasOwnProperty(userId)) {
-    bot.getUserProfilePhotos(userId).then((response) => {
-      const totalPhotos = response.total_count;
-      console.log('Total profile photos: ', totalPhotos);
-      const photos = response.photos;
-      // Iterate through the photos array
-      photos.forEach((photo, photoIndex) => {
-        const fileId = photo[2].file_id;
-        bot.getFile(fileId).then((fileInfo) => { // Get file information using Telegram Bot API's getFile method
-          const fileUrl = `https://api.telegram.org/file/bot${botToken}/${fileInfo.file_path}`;
-          photoUrlsList.push(fileUrl);
-          //console.log(photoUrlsList);
-        });
-        //const fileUrl = `https://api.telegram.org/file/bot${botToken}/${fileId}`; // Constructing the URL
-        const width = photo[2].width;
-        const height = photo[2].height;
-        const fileSize = photo[2].file_size;
-        //bot.sendMessage(chatId, `Photo ${photoIndex + 1}:`);
-        //bot.sendPhoto(chatId, fileId, { caption: `Width: ${width}, Height: ${height}, File Size: ${fileSize}` });
-      });
-    })
-*/

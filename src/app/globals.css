@@ -1,6 +1,5 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
 body {
     margin: 0;
     padding: 0;
@@ -9,7 +8,6 @@ body {
     font-family: Roboto;
     letter-spacing: 3px;
 }
-
 h1 {
     color: rgb(255, 75, 15);
     margin-top: 5%;
@@ -26,10 +24,6 @@ h1 {
     margin-bottom: 5%;
     color: blue;
 }
-
-
-
-
 #div-newTodo {
   margin-left: 400px;
   width: 50%;
@@ -66,12 +60,6 @@ h1 {
     color: white;
     font-size: 30px;
 }
-
-
-
-
-
-
 .div-todo {
   margin-left: 400px;
   width: 50%;
@@ -125,7 +113,6 @@ h1 {
   color: white;
   font-size: 20px;
 }
-
 .check {
   margin-right: 0px;
   margin-left: 5px;
@@ -146,8 +133,6 @@ h1 {
   cursor: pointer;
   transform: scale(0.8);
 }
-
-
 .clear {
     float: right;
     box-sizing: border-box;
@@ -167,9 +152,6 @@ h1 {
 .clear:hover .fa-trash {
     color: #9E00FF;
 }
-
-
-
 #counter {
     margin-top: 200px;
 }
@@ -197,14 +179,3 @@ h1 {
     color: white;
     font-size: 19px;
 }
-
-
-
-
-
-/* You can do changes but i don't want because i will forget if i get back after a month so let everything 
-    (float: right;
-    box-sizing: border-box;
-    height: 40px;
-    background-color: #9E00FF;
-    border: none;)*/

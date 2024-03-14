@@ -1,5 +1,3 @@
-// api/user/route.ts
-import fs from 'fs';
 import express from "express"; // create express app wich receive the data from todo app
 import bodyParser from 'body-parser';  // to parse the JSON data received from script.js
 import cors from 'cors'; // cors to declare the front-end origin of my todo app

@@ -45,29 +45,3 @@ const IndexPage = () => {
   );
 };
 export default IndexPage;
-
-
-
-
-
-
-  //const router = useRouter();
-    // Marks this component and its children as client components
-  // Sample tasks data (replace this with actual tasks data from your application)
-  /*
-  const tasks = [
-    { id: 1, text: 'Task 1', checked: false },
-    { id: 2, text: 'Task 2', checked: true },
-    // Add more tasks as needed
-  ];
-
-  return (
-    <div>
-      <h1>To Do App</h1>
-      <TodoForm />
-      <TodoList tasks={tasks}/>
-      <TaskCounter />
-    </div>
-  );
-  };
-  */

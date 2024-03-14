@@ -1,6 +1,4 @@
-// components/Task.js
 import React from 'react';
-
 const Task = ({ task, onToggle, onRemove }) => {
     return (
         <div className="div-todo" data-task-id={task.id} data-task-checked={task.checked}>
@@ -14,5 +12,4 @@ const Task = ({ task, onToggle, onRemove }) => {
         </div>
     );
 };
-
 export default Task;
